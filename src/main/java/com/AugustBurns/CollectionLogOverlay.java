@@ -941,7 +941,7 @@ public class CollectionLogOverlay extends Overlay
             {
                 URL url = new URL(imageUrl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("User-Agent", "RuneLite-CollectionLogExpanded/1.0");
+                conn.setRequestProperty("User-Agent", "RuneLite-collectionlogexpanded/1.0");
                 conn.setConnectTimeout(5000);
                 conn.setReadTimeout(5000);
                 BufferedImage img = ImageIO.read(conn.getInputStream());

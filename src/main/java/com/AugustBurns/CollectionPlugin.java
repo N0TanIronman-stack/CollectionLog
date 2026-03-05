@@ -60,8 +60,8 @@ public class CollectionPlugin extends Plugin
         net.runelite.client.input.MouseListener,
         net.runelite.client.input.MouseWheelListener
 {
-    private static final String USER_AGENT = "RuneLite-CollectionLogExpanded/1.0 (RuneLite Plugin)";
-    private static final String CONFIG_GROUP = "collectionlogExpanded";
+    private static final String USER_AGENT = "RuneLite-collectionlogexpanded/1.0 (RuneLite Plugin)";
+    private static final String CONFIG_GROUP = "collectionlogexpanded";
     private static final String CONFIG_POS_X = "overlayPosX";
     private static final String CONFIG_POS_Y = "overlayPosY";
 
@@ -177,7 +177,7 @@ public class CollectionPlugin extends Plugin
         // Load monster name list for search autocomplete
         loadMonsterNameCache();
 
-        log.debug("Collection Log Expandedstarted");
+        log.debug("Collection Log Expanded started");
     }
 
     @Override

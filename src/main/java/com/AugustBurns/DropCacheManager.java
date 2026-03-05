@@ -17,12 +17,12 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Manages local file caching of NPC drop table data.
- * Drop data is stored as JSON files in the .runelite/collection-log-wiki/ directory.
+ * Drop data is stored as JSON files in the .runelite/collection-log-expanded directory.
  */
 @Slf4j
 public class DropCacheManager
 {
-    private static final String CACHE_DIR_NAME = "collection-log-wiki";
+    private static final String CACHE_DIR_NAME = "collection-log-expanded";
     private final File cacheDir;
     private final Gson gson;
 

@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 public class WikiDropFetcher
 {
     private static final String WIKI_API_URL = "https://oldschool.runescape.wiki/api.php";
-    private static final String USER_AGENT = "RuneLite-CollectionLogExpanded/1.0 (RuneLite Plugin; https://github.com/runelite)";
+    private static final String USER_AGENT = "RuneLite-collectionlogexpanded/1.0 (RuneLite Plugin; https://github.com/runelite)";
 
     private static final Pattern DROPS_LINE_PATTERN = Pattern.compile("\\{\\{DropsLine", Pattern.CASE_INSENSITIVE);
     private static final Pattern SECTION_HEADER_PATTERN = Pattern.compile("^={3,4}\\s*(.+?)\\s*={3,4}$", Pattern.MULTILINE);
