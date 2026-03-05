@@ -1,7 +1,6 @@
 package com.AugustBurns;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
 
@@ -26,10 +25,15 @@ public class DropCacheManager
     private final File cacheDir;
     private final Gson gson;
 
-    public DropCacheManager()
+    /**
+     * @param gson The client's injected Gson instance (from CollectionPlugin).
+     *             We call .newBuilder().setPrettyPrinting().create() on it so the
+     *             cache files are human-readable, without creating a fresh Gson.
+     */
+    public DropCacheManager(Gson gson)
     {
         this.cacheDir = new File(RuneLite.RUNELITE_DIR, CACHE_DIR_NAME);
-        this.gson = new GsonBuilder().setPrettyPrinting().create();
+        this.gson = gson.newBuilder().setPrettyPrinting().create();
 
         if (!cacheDir.exists())
         {

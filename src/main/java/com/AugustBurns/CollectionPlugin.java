@@ -32,6 +32,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import com.google.gson.Gson;
+
 import javax.inject.Inject;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -67,6 +69,9 @@ public class CollectionPlugin extends Plugin
 
     @Inject
     private Client client;
+
+    @Inject
+    private Gson gson;
 
     @Inject
     private ClientThread clientThread;
@@ -127,7 +132,7 @@ public class CollectionPlugin extends Plugin
     protected void startUp()
     {
         wikiDropFetcher = new WikiDropFetcher();
-        cacheManager = new DropCacheManager();
+        cacheManager = new DropCacheManager(gson);
 
         // Side panel
         panel = new CollectionPluginPanel();
