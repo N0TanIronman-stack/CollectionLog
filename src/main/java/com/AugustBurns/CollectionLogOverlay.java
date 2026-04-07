@@ -22,8 +22,9 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.image.BufferedImage;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -101,6 +102,9 @@ public class CollectionLogOverlay extends Overlay
 
     @Inject
     private CollectionPluginConfig config;
+
+    @Inject
+    private OkHttpClient httpClient;
 
     // Passed from plugin (not injected - injection doesn't resolve reliably in overlays)
     private ItemManager itemManager;
@@ -937,19 +941,24 @@ public class CollectionLogOverlay extends Overlay
         pendingImageDownloads.add(imageUrl);
         imageDownloadExecutor.submit(() ->
         {
-            try
-            {
-                URL url = new URL(imageUrl);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("User-Agent", "RuneLite-collectionlogexpanded/1.0");
-                conn.setConnectTimeout(5000);
-                conn.setReadTimeout(5000);
-                BufferedImage img = ImageIO.read(conn.getInputStream());
-                conn.disconnect();
+            Request request = new Request.Builder()
+                    .url(imageUrl)
+                    .header("User-Agent", "RuneLite-collectionlogexpanded/1.0")
+                    .build();
 
-                if (img != null)
+            try (Response response = httpClient.newCall(request).execute())
+            {
+                if (response.isSuccessful() && response.body() != null)
                 {
-                    wikiImageCache.put(imageUrl, img);
+                    BufferedImage img = ImageIO.read(response.body().byteStream());
+                    if (img != null)
+                    {
+                        wikiImageCache.put(imageUrl, img);
+                    }
+                    else
+                    {
+                        failedImageUrls.add(imageUrl);
+                    }
                 }
                 else
                 {
